@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.PORT;
+const port = 3100;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   });
 
 // Routers
-const indexRouter = require("./routes/book");
+// const indexRouter = require("./routes/book");
 
-app.use("/book", indexRouter);
+app.get('/', (req, res) => res.send('Welcome!'));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
