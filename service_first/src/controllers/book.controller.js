@@ -1,17 +1,14 @@
 const Book = require("../modal/book.modal");
 
 module.exports.getAllBook = async (req, res) => {
-  res.status(200).json({
-    title: "test",
-  });
-  // try {
-  //   const books = await Book.find();
-  //   res.status(200).json(books);
-  // } catch (error) {
-  //   res
-  //     .status(500)
-  //     .json({ error: "An error occurred while creating the book" });
-  // }
+  try {
+    const books = await Book.find();
+    res.status(200).json(books);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the book" });
+  }
 };
 
 module.exports.createBook = async (req, res) => {
