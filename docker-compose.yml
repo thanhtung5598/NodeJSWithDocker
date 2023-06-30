@@ -1,0 +1,52 @@
+# version: "1"
+# services:
+#   microservice1:
+#     build: ./service_first
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - database
+#   microservice2:
+#     build: ./service_second
+#     ports:
+#       - "4000:4000"
+#     depends_on:
+#       - database
+#   database:
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+version: "1"
+services:
+  service1:
+    build: ./service_first
+    ports:
+      - "3001:3000"
+    depends_on:
+      - database1
+  database1:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  service2:
+    build: ./service_second
+    ports:
+      - "4001:4000"
+    depends_on:
+      - database2
+  database2:
+    image: mongo
+    ports:
+      - "27018:27017"
+
+  service3:
+    build: ./service_third
+    ports:
+      - "5001:5000"
+    depends_on:
+      - database3
+  database3:
+    image: mongo
+    ports:
+      - "27019:27017"
