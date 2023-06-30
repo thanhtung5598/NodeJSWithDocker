@@ -21,7 +21,7 @@ services:
   service1:
     build: ./service_first
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - database1
   database1:
@@ -32,7 +32,7 @@ services:
   service2:
     build: ./service_second
     ports:
-      - "4001:4000"
+      - "4000:4000"
     depends_on:
       - database2
   database2:
@@ -43,7 +43,7 @@ services:
   service3:
     build: ./service_third
     ports:
-      - "5001:5000"
+      - "5000:5000"
     depends_on:
       - database3
   database3:
