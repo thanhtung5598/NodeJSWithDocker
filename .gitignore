@@ -1,3 +1,7 @@
 service_first/node_modules/
 service_second/node_modules/
 service_third/node_modules/
+
+service_first/.env
+service_second/.env
+service_third/.env
