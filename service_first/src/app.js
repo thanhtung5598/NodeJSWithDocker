@@ -24,8 +24,10 @@ mongoose
 
 // Routers
 const indexRouter = require("./routes/book");
+const studentRouter = require("./routes/student");
 
 app.use("/book", indexRouter);
+app.use("/students", studentRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
