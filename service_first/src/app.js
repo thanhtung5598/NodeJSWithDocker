@@ -23,9 +23,11 @@ mongoose
   });
 
 // Routers
+const productsRouter = require("./routes/product");
 const indexRouter = require("./routes/book");
 const studentRouter = require("./routes/student");
 
+app.use("/products", productsRouter);
 app.use("/book", indexRouter);
 app.use("/students", studentRouter);
 
