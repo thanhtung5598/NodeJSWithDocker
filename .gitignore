@@ -1,7 +1,9 @@
 service_first/node_modules/
 service_second/node_modules/
 service_third/node_modules/
+auth_service/node_modules/
 
 service_first/.env
 service_second/.env
 service_third/.env
+auth_service/.env

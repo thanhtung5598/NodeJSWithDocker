@@ -1,15 +1,15 @@
 version: "1"
 services:
-  service3:
+  auth_service:
     build: .
     ports:
       - "3000:3000"
     depends_on:
-      - database1
+      - database
     volumes:
-      - my_database_data:/app/data
+      - my_database_data:/app/data   # Adjust the path according to your app's requirements
 
-  database1:
+  database:
     image: mongo
     ports:
       - "27017:27017"
@@ -18,3 +18,4 @@ services:
 
 volumes:
   my_database_data:
+
