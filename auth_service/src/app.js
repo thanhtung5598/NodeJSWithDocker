@@ -40,11 +40,13 @@ mongoose
 
 // Routers
 const accountRouter = require('./routes/account.route')
+const userRouter = require('./routes/user.route')
 
 // router
 const apiVersion = '/api/v0/'
 
 app.use(apiVersion, accountRouter)
+app.use(apiVersion, userRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

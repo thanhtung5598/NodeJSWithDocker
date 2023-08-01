@@ -8,7 +8,6 @@ const accessTokenLife = process.env.ACCESS_TOKEN_LIFE
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
 const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE
 
-
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   return {
     msg: msg,
