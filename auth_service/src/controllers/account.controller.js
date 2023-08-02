@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const Account = require("../models/account.model");
 const jwtHelper = require('../helpers/jwt.helper')
 const CONSTANT = require('../constants/account.constants')
+const MailService = require('../services/mail.service')
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 const accessTokenLife = process.env.ACCESS_TOKEN_LIFE
@@ -78,6 +79,8 @@ const signUp = async (req, res) => {
     accessTokenLife
   );
   
+  MailService.sendTokenAuthorizeAccount(account.email, accessToken)
+
   return res.send({
     message: CONSTANT.SIGN_UP_SUCCESS,
     accessToken,
