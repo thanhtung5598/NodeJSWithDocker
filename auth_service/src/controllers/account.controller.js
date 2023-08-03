@@ -1,13 +1,13 @@
 const { validationResult } = require("express-validator");
 const Account = require("../models/account.model");
-const jwtHelper = require('../helpers/jwt.helper')
-const CONSTANT = require('../constants/account.constants')
-const MailService = require('../services/mail.service')
+const jwtHelper = require("../helpers/jwt.helper");
+const CONSTANT = require("../constants/account.constants");
+const MailService = require("../services/mail.service");
 
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
-const accessTokenLife = process.env.ACCESS_TOKEN_LIFE
-const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
-const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+const accessTokenLife = process.env.ACCESS_TOKEN_LIFE;
+const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE;
 
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   return {
@@ -25,30 +25,37 @@ const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
  */
 const signIn = async (req, res) => {
   // validation
-  const errs = validationResult(req).formatWith(errorFormatter)
+  const errs = validationResult(req).formatWith(errorFormatter);
   if (!errs.isEmpty()) {
-    return res.status(400).json(errs.array())
+    return res.status(400).json(errs.array());
   }
   // body
-  const email = req.body.email
+  const email = req.body.email;
   const account = await Account.findOne({
-    email: email
-  })
+    email: email,
+  });
 
   const accessToken = await jwtHelper.generateToken(
     account,
     accessTokenSecret,
     accessTokenLife
-  )
+  );
 
   const refreshToken = await jwtHelper.generateToken(
     account,
     refreshTokenSecret,
     refreshTokenLife
-  )
+  );
 
-  return res.send({ accessToken, refreshToken })
-}
+  return res.send({
+    accessToken,
+    refreshToken,
+    profile: {
+      email: account.email,
+      name: account.name
+    },
+  });
+};
 
 /**
  * service signup
@@ -78,13 +85,13 @@ const signUp = async (req, res) => {
     accessTokenSecret,
     accessTokenLife
   );
-  
-  MailService.sendTokenAuthorizeAccount(account.email, accessToken)
+
+  MailService.sendTokenAuthorizeAccount(account.email, accessToken);
 
   return res.send({
     message: CONSTANT.SIGN_UP_SUCCESS,
     accessToken,
-    status: 'OK'
+    status: "OK",
   });
 };
 
