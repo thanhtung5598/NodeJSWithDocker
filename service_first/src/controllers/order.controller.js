@@ -25,3 +25,15 @@ module.exports.createOrder = async (req, res) => {
       .json({ error: "An error occurred while creating the order" });
   }
 };
+
+module.exports.getListOrderByEmail = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const orders = await Order.find({ email });
+
+    res.status(200).json({ orders });
+  } catch (error) {
+    console.error("Error fetching orders by email:", error);
+    res.status(500).json({ error: "An error occurred while fetching orders by email" });
+  }
+};
