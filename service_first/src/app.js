@@ -32,10 +32,12 @@ mongoose
 const productsRouter = require("./routes/product");
 const indexRouter = require("./routes/book");
 const studentRouter = require("./routes/student");
+const orderRouter = require("./routes/order");
 
 app.use("/products", productsRouter);
 app.use("/book", indexRouter);
 app.use("/students", studentRouter);
+app.use("/order", orderRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
