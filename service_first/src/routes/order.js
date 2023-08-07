@@ -4,8 +4,8 @@ const router = express.Router();
 // controllers
 const orderController = require("../controllers/order.controller");
 
-router.post("/", orderController.createOrder);
+router.post("/order", orderController.createOrder);
 
-router.get("/:email", orderController.getListOrderByEmail);
+router.get("/order/:email", orderController.getListOrderByEmail);
 
 module.exports = router;

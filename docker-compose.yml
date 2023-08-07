@@ -87,7 +87,7 @@ services:
     volumes:
       - auth_data:/app/data  # Volume for the auth_service container data
 
-  service1:
+  service_first:
     build: ./service_first
     ports:
       - "4000:4000"
@@ -98,7 +98,7 @@ services:
     volumes:
       - service1_data:/app/data  # Volume for the service1 container data
 
-  service2:
+  service_second:
     build: ./service_second
     ports:
       - "5000:5000"
@@ -109,7 +109,7 @@ services:
     volumes:
       - service2_data:/app/data  # Volume for the service2 container data
 
-  service3:
+  service_third:
     build: ./service_third
     ports:
       - "6000:6000"
@@ -126,6 +126,16 @@ services:
       - "27017:27017"
     volumes:
       - database_data:/data/db  # Volume for the database container data
+
+  nginx:
+    image: nginx:latest
+    container_name: api_gateway
+    ports:
+      - "80:80"  # Map port 80 on the host to port 80 on the nginx container
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Mount the custom nginx configuration
+    depends_on:
+      - auth_service  # Make sure the auth_service is started before nginx
 
 volumes:
   auth_data: {}

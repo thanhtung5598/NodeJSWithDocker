@@ -39,11 +39,12 @@ mongoose
   });
 
 // Routers
-const indexRouter = require("./routes/book");
 const uploadRouter = require("./routes/upload");
 
-app.use("/book", indexRouter);
-app.use("/upload", uploadRouter);
+// router
+const apiVersion = '/api/v0/'
+
+app.use(apiVersion, uploadRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -4,10 +4,10 @@ const router = express.Router();
 // controllers
 const uploadController = require("../controllers/upload.controller");
 
-router.post("/", uploadController.uploadFile);
+router.post("/upload", uploadController.uploadFile);
 
-router.get("/:filename", uploadController.downloadFile);
+router.get("/upload/:filename", uploadController.downloadFile);
 
-router.delete("/:filename", uploadController.deleteFile);
+router.delete("/upload/:filename", uploadController.deleteFile);
 
 module.exports = router;

@@ -34,10 +34,13 @@ const indexRouter = require("./routes/book");
 const studentRouter = require("./routes/student");
 const orderRouter = require("./routes/order");
 
-app.use("/products", productsRouter);
-app.use("/book", indexRouter);
-app.use("/students", studentRouter);
-app.use("/order", orderRouter);
+// router
+const apiVersion = '/api/v0/'
+
+app.use(apiVersion, productsRouter);
+app.use(apiVersion, indexRouter);
+app.use(apiVersion, studentRouter);
+app.use(apiVersion, orderRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

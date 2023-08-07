@@ -4,12 +4,12 @@ const router = express.Router();
 // controllers
 const studentController = require("../controllers/student.controller");
 
-router.get("/", studentController.getStudents);
+router.get("/students", studentController.getStudents);
 
-router.post("/", studentController.createStudent);
+router.post("/students", studentController.createStudent);
 
-router.delete("/:id", studentController.removeStudent);
+router.delete("/students/:id", studentController.removeStudent);
 
-router.put("/:id", studentController.updateStudent);
+router.put("/students/:id", studentController.updateStudent);
 
 module.exports = router;

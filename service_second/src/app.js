@@ -29,11 +29,6 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
-// Routers
-const indexRouter = require("./routes/book");
-
-app.use("/book", indexRouter);
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
