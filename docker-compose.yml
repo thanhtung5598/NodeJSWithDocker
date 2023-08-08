@@ -142,7 +142,7 @@ services:
 
 volumes:
   auth_data: {}
-  service1_data: {}
-  service2_data: {}
-  service3_data: {}
+  service_first_data: {}
+  service_second_data: {}
+  service_third_data: {}
   database_data: {}
