@@ -94,9 +94,9 @@ services:
     depends_on:
       - database
     environment:
-      - MONGO_URI=mongodb://database:27017/service1_db  # Use environment variables to configure the MongoDB URI for service1
+      - MONGO_URI=mongodb://database:27017/service_first_db  # Use environment variables to configure the MongoDB URI for service_first
     volumes:
-      - service1_data:/app/data  # Volume for the service1 container data
+      - service_first_data:/app/data  # Volume for the service_first container data
 
   service_second:
     build: ./service_second
@@ -105,9 +105,9 @@ services:
     depends_on:
       - database
     environment:
-      - MONGO_URI=mongodb://database:27017/service2_db  # Use environment variables to configure the MongoDB URI for service2
+      - MONGO_URI=mongodb://database:27017/service_second_db  # Use environment variables to configure the MongoDB URI for service_second
     volumes:
-      - service2_data:/app/data  # Volume for the service2 container data
+      - service_second_data:/app/data  # Volume for the service_second container data
 
   service_third:
     build: ./service_third
@@ -116,9 +116,9 @@ services:
     depends_on:
       - database
     environment:
-      - MONGO_URI=mongodb://database:27017/service3_db  # Use environment variables to configure the MongoDB URI for service3
+      - MONGO_URI=mongodb://database:27017/service_third_db  # Use environment variables to configure the MongoDB URI for service_third
     volumes:
-      - service3_data:/app/data  # Volume for the service3 container data
+      - service_third_data:/app/data  # Volume for the service_third container data
 
   database:
     image: mongo
@@ -135,10 +135,10 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Mount the custom nginx configuration
     depends_on:
-      - auth_service # Make sure the auth_service is started before nginx
-      - service_first # Make sure the auth_service is started before nginx
-      - service_second # Make sure the auth_service is started before nginx
-      - service_third # Make sure the auth_service is started before nginx
+      - auth_service
+      - service_first
+      - service_second
+      - service_third
 
 volumes:
   auth_data: {}
