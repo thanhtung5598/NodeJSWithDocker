@@ -17,13 +17,7 @@ app.use(
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
+
 // Database
 const mongoose = require("mongoose");
 mongoose
@@ -38,15 +32,23 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
+app.use(cors());
+app.all("/", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 // Routers
-const accountRouter = require('./routes/account.route')
-const userRouter = require('./routes/user.route')
+const accountRouter = require("./routes/account.route");
+const userRouter = require("./routes/user.route");
 
 // router
-const apiVersion = '/api/v0/'
+const apiVersion = "/api/v0/";
 
-app.use(apiVersion, accountRouter)
-app.use(apiVersion, userRouter)
+app.use(apiVersion, accountRouter);
+app.use(apiVersion, userRouter);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
