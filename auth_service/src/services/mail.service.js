@@ -1,39 +1,37 @@
-const nodemailer = require('nodemailer')
+const nodemailer = require("nodemailer");
 
 /**
  * This is variable config mail
  */
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host: "smtp.gmail.com",
   secure: true,
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.EMAIL,
-    pass: process.env.PASS
-  }
-})
+    pass: process.env.PASS,
+  },
+});
 
 const sendTokenAuthorizeAccount = (email, accessToken) => {
-  const content = 'Hãy xác thực tài khoản của bạn với đường dẫn hoặc nhấn nút bên dưới!'
-  const message = 'Cảm ơn bạn đã đăng ký!'
-  const url = `https://trustland.asia/active/${accessToken}`
+  const content =
+    "Hãy xác thực tài khoản của bạn với đường dẫn hoặc nhấn nút bên dưới!";
+  const message = "Cảm ơn bạn đã đăng ký!";
+  const url = `https://trustland.asia/active/${accessToken}`;
   const formContent = {
     from: process.env.EMAIL,
     to: email,
-    subject: 'E-Commerce - Active account',
-    html: emailTemplate(message, content, url)
-  }
-  transporter.sendMail(
-    formContent,
-    function (error, info) {
-      console.log('Trong mail')
-      if (error) {
-        console.log('Trong err')
-        console.log(error)
-      }
+    subject: "Active account",
+    html: emailTemplate(message, content, url),
+  };
+  transporter.sendMail(formContent, function (error, info) {
+    console.log("Trong mail");
+    if (error) {
+      console.log("Trong err");
+      console.log(error);
     }
-  )
-}
+  });
+};
 
 const emailTemplate = (message, content, url) => {
   return `<table width="90%" border="0" cellpadding="0" cellspacing="0" align="center">
@@ -65,9 +63,9 @@ const emailTemplate = (message, content, url) => {
 <div style="text-align: center;word-break: break-all;">
   <p>Hoặc</p>
 </div>
-<div style="text-align:center">Xác thực tại đây: <a style="word-break: break-all;" href=${url}>${url}</a></div>`
-}
+<div style="text-align:center">Xác thực tại đây: <a style="word-break: break-all;" href=${url}>${url}</a></div>`;
+};
 
 module.exports = {
-  sendTokenAuthorizeAccount
-}
+  sendTokenAuthorizeAccount,
+};
