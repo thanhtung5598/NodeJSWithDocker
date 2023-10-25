@@ -32,7 +32,7 @@ const signIn = async (req, res) => {
   // body
   const email = req.body.email;
   const account = await Account.findOne({
-    email: email,
+    email,
   });
 
   const accessToken = await jwtHelper.generateToken(
@@ -48,11 +48,16 @@ const signIn = async (req, res) => {
   );
 
   return res.send({
-    accessToken,
-    refreshToken,
+    message: CONSTANT.SIGN_IN_SUCCESS,
+    status: CONSTANT.SUCCESS_CODE_200,
+    auth: {
+      accessToken,
+      refreshToken,
+      active: account.active,
+    },
     profile: {
       email: account.email,
-      name: account.name
+      name: account.name,
     },
   });
 };
@@ -76,6 +81,7 @@ const signUp = async (req, res) => {
     email: req.body.email,
     name: req.body.name,
     password: req.body.password,
+    active: false,
   });
 
   await account.save();
@@ -86,16 +92,53 @@ const signUp = async (req, res) => {
     accessTokenLife
   );
 
+  const refreshToken = await jwtHelper.generateToken(
+    account,
+    refreshTokenSecret,
+    refreshTokenLife
+  );
+
   MailService.sendTokenAuthorizeAccount(account.email, accessToken);
 
   return res.send({
     message: CONSTANT.SIGN_UP_SUCCESS,
-    accessToken,
-    status: "OK",
+    status: CONSTANT.SUCCESS_CODE_200,
+    auth: {
+      accessToken,
+      refreshToken,
+      active: account.active,
+    },
+    profile: {
+      email: req.body.email,
+      name: req.body.name,
+    },
+  });
+};
+
+/**
+ * This is function set status account to active
+ * @param {*} req
+ * @param {*} res
+ * @param {headers} x-access-token
+ */
+const accountIsActive = async (req, res) => {
+  const token =
+    req.headers["x-access-token"] || req.headers.authorization.split(" ")[1];
+  const decoded = await jwtHelper.verifyToken(token, accessTokenSecret);
+  const account = decoded.data;
+  await Account.findOneAndUpdate(
+    { email: account.email },
+    {
+      active: true,
+    }
+  );
+  return res.send({
+    message: CONSTANT.ACTIVE_SUCCESS,
   });
 };
 
 module.exports = {
   signIn,
   signUp,
+  accountIsActive,
 };

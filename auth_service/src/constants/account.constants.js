@@ -34,3 +34,6 @@ module.exports.TOKEN_HAS_EXPIRED = "Token Has Expired";
 module.exports.ACTIVE_SUCCESS = "Active Account Success";
 module.exports.ACCCOUNT_IS_NOT_ACTIVE = "Account is not active";
 module.exports.BODY_IS_EMPTY = "Body is empty";
+
+module.exports.SUCCESS_CODE_200 = 200;
+module.exports.SUCCESS_CODE_201 = 201;
